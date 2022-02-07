@@ -4,17 +4,22 @@ import "./App.css";
 import ChatRoom from "./components/ChatRoom";
 import ChatRoomsList from "./components/ChatRoomsList";
 import { Route, Routes } from "react-router-dom";
+import axios from "axios";
+import chatRooms from "./Stores/chatRoomsStore";
+import { observer } from "mobx-react";
 
 const App = () => {
-  const [rooms, setRooms] = useState([]);
+  const rooms = chatRooms.rooms;
 
-  const createRoom = (newRoom) => {
-    // to do : call BE to create a room
+  /* const fetchRooms = async () => {
+    const renderRooms = await axios.get(
+      "https://coded-task-axios-be.herokuapp.com/rooms"
+    );
+    setRooms(renderRooms.data);
   };
 
-  const deleteRoom = (id) => {
-    // to do : call BE to delete a room
-  };
+  fetchRooms();
+  */
 
   return (
     <div className="__main">
@@ -33,4 +38,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);

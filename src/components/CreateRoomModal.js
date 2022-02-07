@@ -1,5 +1,6 @@
 import { Modal, Button, InputGroup, Form } from "react-bootstrap";
 import React, { useState } from "react";
+import chatRooms from "../Stores/chatRoomsStore";
 
 const CreateRoomModal = ({ closeModal, isOpen }) => {
   const [room, setRoom] = useState({
@@ -8,12 +9,17 @@ const CreateRoomModal = ({ closeModal, isOpen }) => {
     description: "",
     messages: [],
   });
+
   const handleChange = (event) => {
     // to do : setRoom state based in input
+    setRoom({ ...room, [event.target.name]: event.target.value });
+    event.preventDefault();
   };
   const handleSubmit = (event) => {
     // to do : stop page from refreshing
     // call a function from app to create a room (pass room as a parameter)
+
+    chatRooms.createRoom(room);
 
     closeModal(); // this is to close the modal that is shown
   };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import MessageItem from "./MessageItem";
+import chatRooms from "../Stores/chatRoomsStore";
 
 const ChatRoom = ({ rooms }) => {
   const roomSlug = useParams().roomSlug;
@@ -10,9 +11,13 @@ const ChatRoom = ({ rooms }) => {
   });
   const [msg, setMsg] = useState({ msg: "" });
   const handleChange = (event) => {
-    setMsg({ ...msg, [event.target.name]: event.target.value });
+    setMsg({ msg: event.target.value });
   };
-  const handleSubmit = (event) => {};
+  const handleSubmit = (event) => {
+    chatRooms.addMessages(room, msg);
+    console.log("msg", msg);
+    event.preventDefault();
+  };
 
   return (
     <div className="main__chatcontent">
